@@ -1,0 +1,2 @@
+contatore_start=1
+contatore_finish=500

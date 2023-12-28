@@ -1,0 +1,22 @@
+da https://basketball.realgm.com/player/Bryant-Kobe/Summary/1
+a https://basketball.realgm.com/player/Bryant-Kobe/Summary/500
+
+salva la pagina sorgente in input come file 1.txt
+leggo NBA...dopo 6 riga : minuti , riga 7 : punti -
+formula minuti/(punti *2) = power.
+
+NBA Regular Season Stats - Per Game
+<tfoot><tr class="career per_game">
+<td>CAREER</td>
+<td>&nbsp;</td>
+<td>70</td>
+<td>3</td>
+<td>11.1</td> 
+<td>1.93</td>  
+
+1.93 * 2 = 11.1 /3.86: punteggio
+
+<title>Chris Richard Player Profile, Chicago Bulls - RealGM</title>
+estrai il nome e cognome 
+
+inserisci a db nome cognome power
