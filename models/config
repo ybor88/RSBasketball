@@ -1,0 +1,32 @@
+CREATE USER 'rsbasketball'@'localhost' IDENTIFIED BY 'Bgh65I';
+GRANT ALL PRIVILEGES ON *.* TO 'rsbasketball'@'localhost';
+FLUSH PRIVILEGES;
+CREATE DATABASE rsbasketballDB;
+USE rsbasketballDB;
+mysql -u rsbasketball -p
+
+### SECURIRY
+ALTER USER 'rsbasketball'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'Bgh65I';
+
+CREATE TABLE giocatori (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+	cognome VARCHAR(100) NOT NULL,
+    potenza INT NOT NULL
+);
+
+CREATE TABLE classifica (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    giocatore_id INT,
+    posizione INT NOT NULL,
+    FOREIGN KEY (giocatore_id) REFERENCES giocatori(id)
+);
+
+INSERT INTO giocatori (nome, cognome, potenza) VALUES
+    ('Lebron', 'James', 97),
+    ('Kobe', 'Bryant', 96);
+
+### IMPORT DATABASE
+mysql -u rsbasketball -p Bgh65I rsbasketballDB < rsbasketballDB_dump.sql
+### EXPORT DATABASE
+mysqldump -u rsbasketball -pBgh65I --no-create-db --no-create-info rsbasketballDB > rsbasketballDB_dump.sql
