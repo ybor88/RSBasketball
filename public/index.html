@@ -1,0 +1,156 @@
+<!-- public/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSBasketball</title>
+	 <link rel="icon" type="image/png" href="img/logo.png"> <!-- Aggiunto il logo al title del browser -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f2f2f2; /* Colore di sfondo grigio chiaro */
+        }
+
+        header {
+            background-color: #333; /* Colore di sfondo nero */
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Aggiunto ombra sottile */
+            position: relative;
+        }
+
+        #logo {
+            max-height: 60px; /* Dimensioni del logo */
+            width: auto;
+            margin-right: 10px;
+        }
+
+        #header-content {
+            text-align: center;
+        }
+
+        #header-content h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        #header-content p {
+            margin: 5px 0;
+            font-size: 1em;
+            color: #ccc; /* Colore grigio chiaro per il sottotitolo */
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto; /* Spinge verso il basso il footer alla fine della pagina */
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #555; /* Colore di sfondo grigio scuro per l'intestazione della tabella */
+            color: #fff;
+        }
+
+        /* Media query per la responsività */
+        @media (max-width: 768px) {
+            header {
+                padding: 10px; /* Ridotto il padding per schermi più piccoli */
+            }
+
+            #logo {
+                max-height: 40px; /* Ridotto ulteriormente il logo per schermi più piccoli */
+                margin-right: 0;
+            }
+
+            #header-content h1 {
+                font-size: 1.5em; /* Ridotto ulteriormente il font-size */
+            }
+
+            #header-content p {
+                font-size: 0.8em; /* Ridotto ulteriormente il font-size */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div id="header-content">
+            <img id="logo" src="img/logo.png" alt="Logo RSBasketball">
+            <h1>RSBasketball</h1>
+            <p>La tua app per il mondo del basket</p>
+        </div>
+    </header>
+
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Potenza</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- I giocatori saranno inseriti qui dinamicamente dal tuo script JavaScript -->
+            </tbody>
+        </table>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 RSBasketball App. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('/api/giocatori');
+                const players = await response.json();
+
+                const tbody = document.querySelector('tbody');
+                players.forEach(player => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${player.nome}</td>
+                        <td>${player.cognome}</td>
+                        <td>${player.potenza}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Errore nel recupero dei giocatori:', error);
+            }
+        });
+    </script>
+
+</body>
+</html>
