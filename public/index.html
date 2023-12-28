@@ -131,25 +131,33 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const response = await fetch('/api/giocatori');
-                const players = await response.json();
+     document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('/api/giocatori');
+		const contentType = response.headers.get('Content-Type');
+        console.log(response);  // Debugging
+        if (!response.ok) {
+            throw new Error(`Errore nella richiesta API: ${response.statusText}`);
+        }
 
-                const tbody = document.querySelector('tbody');
-                players.forEach(player => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${player.nome}</td>
-                        <td>${player.cognome}</td>
-                        <td>${player.potenza}</td>
-                    `;
-                    tbody.appendChild(row);
-                });
-            } catch (error) {
-                console.error('Errore nel recupero dei giocatori:', error);
-            }
+        const players = await response.json();
+
+        const tbody = document.querySelector('tbody');
+        players.forEach(player => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${player.nome}</td>
+                <td>${player.cognome}</td>
+                <td>${player.potenza}</td>
+            `;
+            tbody.appendChild(row);
         });
+    } catch (error) {
+    console.error('Errore nel recupero dei giocatori:', error);
+    console.log('Response status:', response.status);
+    console.log('Response text:', await response.text());
+}
+});
     </script>
 
 </body>
