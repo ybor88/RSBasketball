@@ -1,0 +1,5 @@
+eseguire applicazione :
+node index.js
+
+accedere all'applicazione :
+http://localhost:3000
