@@ -1,12 +1,11 @@
-<!-- public/index.html -->
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RSBasketball</title>
-	 <link rel="icon" type="image/png" href="img/logo.png"> <!-- Aggiunto il logo al title del browser -->
+    <link rel="icon" type="image/png" href="img/logo.png">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -15,20 +14,20 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            background-color: #f2f2f2; /* Colore di sfondo grigio chiaro */
+            background-color: #f2f2f2;
         }
 
         header {
-            background-color: #333; /* Colore di sfondo nero */
+            background-color: #333;
             color: #fff;
             text-align: center;
             padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Aggiunto ombra sottile */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             position: relative;
         }
 
         #logo {
-            max-height: 60px; /* Dimensioni del logo */
+            max-height: 60px;
             width: auto;
             margin-right: 10px;
         }
@@ -45,21 +44,15 @@
         #header-content p {
             margin: 5px 0;
             font-size: 1em;
-            color: #ccc; /* Colore grigio chiaro per il sottotitolo */
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-            margin-top: auto; /* Spinge verso il basso il footer alla fine della pagina */
+            color: #ccc;
         }
 
         main {
             flex: 1;
             display: flex;
             justify-content: center;
+            align-items: center;
+            flex-direction: column;
             padding: 20px;
         }
 
@@ -67,6 +60,10 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
         }
 
         th, td {
@@ -76,31 +73,86 @@
         }
 
         th {
-            background-color: #555; /* Colore di sfondo grigio scuro per l'intestazione della tabella */
+            background-color: #555;
             color: #fff;
         }
 
-        /* Media query per la responsività */
+        /* Media query for responsiveness */
         @media (max-width: 768px) {
             header {
-                padding: 10px; /* Ridotto il padding per schermi più piccoli */
+                padding: 10px;
             }
 
             #logo {
-                max-height: 40px; /* Ridotto ulteriormente il logo per schermi più piccoli */
+                max-height: 40px;
                 margin-right: 0;
             }
 
             #header-content h1 {
-                font-size: 1.5em; /* Ridotto ulteriormente il font-size */
+                font-size: 1.5em;
             }
 
             #header-content p {
-                font-size: 0.8em; /* Ridotto ulteriormente il font-size */
+                font-size: 0.8em;
+            }
+
+            main {
+                padding: 10px;
+            }
+
+            table {
+                margin-top: 10px;
+            }
+
+            footer {
+                padding: 10px;
+                text-align: center;
             }
         }
+
+        /* Style for additional sections */
+        #home button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 1em;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        #home button:hover {
+            background-color: #555;
+        }
+
+        #home > div {
+            display: none;
+        }
+
+        #ratingTable {
+            display: table; /* Initially set to display: none; */
+        }
+
+        /* Add styles for other sections as needed */
+        #scoutingSection,
+        #loadPlayerSection,
+        #contactSection {
+            display: none;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            margin-top: auto;
+            text-align: center; /* Centering the copyright text */
+        }
+
     </style>
 </head>
+
 <body>
 
     <header>
@@ -112,18 +164,40 @@
     </header>
 
     <main>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Cognome</th>
-                    <th>Potenza</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- I giocatori saranno inseriti qui dinamicamente dal tuo script JavaScript -->
-            </tbody>
-        </table>
+        <div id="home">
+            <button onclick="showRatingTable()">Rating</button>
+            <button onclick="showScouting()">Scouting</button>
+            <button onclick="loadPlayer()">Load Player</button>
+            <button onclick="showContact()">Contact</button>
+
+            <div id="ratingSection">
+                <table id="ratingTable">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cognome</th>
+                            <th>Potenza</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Ratings will be inserted here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Add other sections or elements for Scouting, Load Player, and Contact as needed -->
+            <div id="scoutingSection">
+                <!-- Content for Scouting section -->
+            </div>
+
+            <div id="loadPlayerSection">
+                <!-- Content for Load Player section -->
+            </div>
+
+            <div id="contactSection">
+                <!-- Content for Contact section -->
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -131,34 +205,85 @@
     </footer>
 
     <script>
-     document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        const response = await fetch('/api/giocatori');
-		const contentType = response.headers.get('Content-Type');
-        console.log(response);  // Debugging
-        if (!response.ok) {
-            throw new Error(`Errore nella richiesta API: ${response.statusText}`);
-        }
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('/api/giocatori');
+                const contentType = response.headers.get('Content-Type');
+                if (!response.ok) {
+                    throw new Error(`Errore nella richiesta API: ${response.statusText}`);
+                }
 
-        const players = await response.json();
+                const players = await response.json();
 
-        const tbody = document.querySelector('tbody');
-        players.forEach(player => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${player.nome}</td>
-                <td>${player.cognome}</td>
-                <td>${player.potenza}</td>
-            `;
-            tbody.appendChild(row);
+                const tbody = document.querySelector('tbody');
+                players.forEach(player => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${player.nome}</td>
+                        <td>${player.cognome}</td>
+                        <td>${player.potenza}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Errore nel recupero dei giocatori:', error);
+            }
         });
-    } catch (error) {
-    console.error('Errore nel recupero dei giocatori:', error);
-    console.log('Response status:', response.status);
-    console.log('Response text:', await response.text());
-}
-});
+
+        window.showRatingTable = async function () {
+            try {
+                const response = await fetch('/api/giocatori');
+                const contentType = response.headers.get('Content-Type');
+                if (!response.ok) {
+                    throw new Error(`Errore nella richiesta API: ${response.statusText}`);
+                }
+
+                const players = await response.json();
+
+                const tbody = document.querySelector('tbody');
+                tbody.innerHTML = ''; // Clear existing rows
+                players.forEach(player => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${player.nome}</td>
+                        <td>${player.cognome}</td>
+                        <td>${player.potenza}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                // Show the rating section and hide other sections
+                document.getElementById('ratingSection').style.display = 'block';
+                document.getElementById('scoutingSection').style.display = 'none';
+                document.getElementById('loadPlayerSection').style.display = 'none';
+                document.getElementById('contactSection').style.display = 'none';
+            } catch (error) {
+                console.error('Errore nel recupero dei giocatori:', error);
+            }
+        };
+
+        window.showScouting = function () {
+            document.getElementById('ratingSection').style.display = 'none';
+            document.getElementById('scoutingSection').style.display = 'block';
+            document.getElementById('loadPlayerSection').style.display = 'none';
+            document.getElementById('contactSection').style.display = 'none';
+        };
+
+        window.loadPlayer = function () {
+            document.getElementById('ratingSection').style.display = 'none';
+            document.getElementById('scoutingSection').style.display = 'none';
+            document.getElementById('loadPlayerSection').style.display = 'block';
+            document.getElementById('contactSection').style.display = 'none';
+        };
+
+        window.showContact = function () {
+            document.getElementById('ratingSection').style.display = 'none';
+            document.getElementById('scoutingSection').style.display = 'none';
+            document.getElementById('loadPlayerSection').style.display = 'none';
+            document.getElementById('contactSection').style.display = 'block';
+        };
     </script>
 
 </body>
+
 </html>
