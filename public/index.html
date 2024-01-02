@@ -26,15 +26,14 @@
     position: relative;
 }
 
-    #logo {
+#logo {
     max-height: 60px;
     width: auto;
-    margin-right: 10px;
-    background-color: rgba(255, 255, 255, 0.8); /* Sfondo trasparente */
-    padding: 5px; /* Spazio intorno al logo */
-    border-radius: 8px; /* Bordo arrotondato */
+    margin-right: 20px; /* Aggiunto margine a destra */
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border-radius: 8px;
 }
-
 
     #header-content {
     display: flex;
@@ -85,37 +84,37 @@ main {
         }
 
         /* Media query for responsiveness */
-        @media (max-width: 768px) {
-            header {
-                padding: 10px;
-            }
+       @media (max-width: 768px) {
+    header {
+        padding: 10px;
+    }
 
-            #logo {
-                max-height: 40px;
-                margin-right: 0;
-            }
+    #logo {
+        max-height: 40px;
+        margin-right: 0;
+    }
 
-            #header-content h1 {
-                font-size: 1.5em;
-            }
+    #header-content p {
+        margin: 5px 0; /* Adatta il margine per evitare sovrapposizioni */
+    }
 
-            #header-content p {
-                font-size: 0.8em;
-            }
+    #home button {
+        width: 100%; /* Per una colonna completa su schermi più piccoli */
+    }
 
-            main {
-                padding: 10px;
-            }
+    main {
+        padding: 10px;
+    }
 
-            table {
-                margin-top: 10px;
-            }
+    table {
+        margin-top: 10px;
+    }
 
-            footer {
-                padding: 10px;
-                text-align: center;
-            }
-        }
+    footer {
+        padding: 10px;
+        text-align: center;
+    }
+}
 
         /* Style for additional sections */
         #home button {
