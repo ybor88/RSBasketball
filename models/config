@@ -5,7 +5,16 @@ CREATE DATABASE rsbasketballDB;
 USE rsbasketballDB;
 mysql -u rsbasketball -p
 
-### SECURIRY
+ALTER TABLE giocatori
+ADD COLUMN altezza VARCHAR(255),
+ADD COLUMN peso VARCHAR(255),
+ADD COLUMN massimo_livello_carriera VARCHAR(255),
+ADD COLUMN data_nascits date,
+ADD COLUMN luogo_nascita VARCHAR(255),
+ADD COLUMN nazione VARCHAR(255),
+ADD COLUMN stato VARCHAR(255);
+
+### SECURITY
 ALTER USER 'rsbasketball'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'Bgh65I';
 
 CREATE TABLE giocatori (

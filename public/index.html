@@ -63,18 +63,23 @@
             padding: 20px;
         }
 
+        .table-container {
+            overflow-x: auto;
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
             border-radius: 8px;
-            overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             background-color: #fff;
             display: none;
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 12px;
             text-align: left;
@@ -130,6 +135,11 @@
                 padding: 10px;
             }
 
+            .table-container {
+                padding: 10px;
+                flex: unset;
+            }
+
             table {
                 margin-top: 10px;
             }
@@ -151,12 +161,10 @@
             margin-top: auto;
             text-align: center;
         }
-
     </style>
 </head>
 
 <body>
-
     <header>
         <div id="header-content">
             <img id="logo" src="img/logo.png" alt="Logo RSBasketball">
@@ -172,37 +180,30 @@
             <button onclick="loadPlayer()">Load Player</button>
             <button onclick="showContact()">Contact</button>
             <button onclick="showServer()">Server</button>
+        </div>
 
-            <div id="ratingSection">
-                <table id="ratingTable">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Cognome</th>
-                            <th>Potenza</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Ratings saranno inseriti qui dinamicamente -->
-                    </tbody>
-                </table>
-            </div>
+        <div id="ratingSection" class="table-container">
+            <table id="ratingTable">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                       
 
-            <div id="scoutingSection">
-                <!-- Contenuto per la sezione di Scouting -->
-            </div>
-
-            <div id="loadPlayerSection">
-                <!-- Contenuto per la sezione di Load Player -->
-            </div>
-
-            <div id="contactSection">
-                <!-- Contenuto per la sezione di Contact -->
-            </div>
-
-            <div id="serverSection">
-                <!-- Contenuto per la sezione del Server -->
-            </div>
+ <th>Potenza</th>
+                        <th>Altezza</th>
+                        <th>Peso</th>
+                        <th>Livello Carriera Massimo</th>
+                        <th>Data di Nascita</th>
+                        <th>Luogo di Nascita</th>
+                        <th>Nazione</th>
+                        <th>Stato</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Ratings saranno inseriti qui dinamicamente -->
+                </tbody>
+            </table>
         </div>
     </main>
 
@@ -215,21 +216,26 @@
             try {
                 const response = await fetch('/api/giocatori');
                 const contentType = response.headers.get('Content-Type');
-                if (!response.ok)
-
- {
+                if (!response.ok) {
                     throw new Error(`Errore nella richiesta API: ${response.statusText}`);
                 }
 
                 const players = await response.json();
 
-                const tbody = document.querySelector('tbody');
+                const tbody = document.querySelector('#ratingTable tbody');
                 players.forEach(player => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${player.nome}</td>
                         <td>${player.cognome}</td>
                         <td>${player.potenza}</td>
+                        <td>${player.altezza}</td>
+                        <td>${player.peso}</td>
+                        <td>${player.massimo_livello_carriera}</td>
+                        <td>${player.data_nascita}</td>
+                        <td>${player.luogo_nascita}</td>
+                        <td>${player.nazione}</td>
+                        <td>${player.stato}</td>
                     `;
                     tbody.appendChild(row);
                 });
@@ -248,7 +254,7 @@
 
                 const players = await response.json();
 
-                const tbody = document.querySelector('tbody');
+                const tbody = document.querySelector('#ratingTable tbody');
                 tbody.innerHTML = '';
                 players.forEach(player => {
                     const row = document.createElement('tr');
@@ -256,11 +262,18 @@
                         <td>${player.nome}</td>
                         <td>${player.cognome}</td>
                         <td>${player.potenza}</td>
+                        <td>${player.altezza}</td>
+                        <td>${player.peso}</td>
+                        <td>${player.massimo_livello_carriera}</td>
+                        <td>${player.data_nascita}</td>
+                        <td>${player.luogo_nascita}</td>
+                        <td>${player.nazione}</td>
+                        <td>${player.stato}</td>
                     `;
                     tbody.appendChild(row);
                 });
 
-                document.getElementById('ratingTable').style.display = 'block';
+                document.getElementById('ratingTable').style.display = 'table';
                 document.getElementById('scoutingSection').style.display = 'none';
                 document.getElementById('loadPlayerSection').style.display = 'none';
                 document.getElementById('contactSection').style.display = 'none';
@@ -302,7 +315,6 @@
             document.getElementById('serverSection').style.display = 'block';
         };
     </script>
-
 </body>
 
 </html>
